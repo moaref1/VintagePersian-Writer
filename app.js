@@ -6,7 +6,7 @@ const LEGACY_KEY = 'vintage_persian_autosave';
 let currentProjectId = null;
 let projectsMeta = [];
 let currentPageIndex = 0;
-let isSingleView = false;
+let isSingleView = true;
 let isPaginating = false;
 let autoSaveTimeout;
 let lastDeletedNode = null;
@@ -133,7 +133,7 @@ function createSampleProject() {
     // Insert sample text line by line to allow proper pagination
     const lines = sampleText.split('\n');
     lines.forEach(line => {
-        if (line.trim() === '') {
+        if (line === '') {
             const div = document.createElement('div');
             div.innerHTML = '<br>';
             p0Content.appendChild(div);
@@ -169,6 +169,36 @@ function deleteProject(id, event) {
     } else {
         renderProjectList();
     }
+}
+
+function clearAllCache() {
+    if (!confirm('همه پروژه‌ها و تنظیمات پاک شوند؟ این کار قابل بازگشت نیست.')) return;
+
+    // Remove all app-related keys
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        if (key.startsWith('vintage_project_') || key === META_KEY || key === LEGACY_KEY || key === 'vintage_last_active_id') {
+            keysToRemove.push(key);
+        }
+    }
+    keysToRemove.forEach(k => localStorage.removeItem(k));
+
+    // Reset in-memory state
+    projectsMeta = [];
+    currentProjectId = null;
+    currentPageIndex = 0;
+
+    // Clear pages except page-0
+    const pages = getAllPages();
+    pages.forEach((p, i) => { if (i > 0) p.remove(); });
+    const p0Content = document.getElementById('page-0').querySelector('.content');
+    if (p0Content) p0Content.innerHTML = '';
+
+    // Recreate default project
+    createNewProject('پروژه پیش‌فرض', true);
+    renderProjectList();
 }
 
 function renderProjectList() {
@@ -324,18 +354,10 @@ function restoreFromLocal(rawJSON) {
             document.getElementById('fontSelect').value = data.font;
         }
         
-        // Restore view state (single vs double page view)
-        if(data.isSingleView !== undefined) {
-            isSingleView = data.isSingleView;
-            const container = document.getElementById('bookContainer');
-            if(isSingleView) {
-                container.classList.add('single-view');
-                document.getElementById('viewBtn').innerText = "دو صفحه‌ای";
-            } else {
-                container.classList.remove('single-view');
-                document.getElementById('viewBtn').innerText = "تک صفحه‌ای";
-            }
-        }
+        // Single-view only: ignore stored view mode
+        isSingleView = true;
+        const container = document.getElementById('bookContainer');
+        if (container) container.classList.add('single-view');
         
         // Restore page position (where user was reading)
         if(data.currentPageIndex !== undefined) {
@@ -369,22 +391,10 @@ function saveFile() {
 
 // --- View Toggle ---
 function toggleView() {
-    isSingleView = !isSingleView;
+    // Single-view only: no-op
+    isSingleView = true;
     const container = document.getElementById('bookContainer');
-    const btn = document.getElementById('viewBtn');
-    
-    if (isSingleView) {
-        container.classList.add('single-view');
-        btn.innerText = "دو صفحه‌ای";
-    } else {
-        container.classList.remove('single-view');
-        btn.innerText = "تک صفحه‌ای";
-        // Align to even page when switching to double-view
-        if (currentPageIndex % 2 !== 0) {
-            currentPageIndex--;
-        }
-    }
-    // Save preference and re-render
+    if (container) container.classList.add('single-view');
     saveToLocal(true);
     updatePaginationDisplay();
 }
@@ -397,154 +407,77 @@ function updatePaginationDisplay() {
     if (currentPageIndex < 0) currentPageIndex = 0;
     if (currentPageIndex >= pages.length) currentPageIndex = pages.length - 1;
 
-    pages.forEach(p => {
-        p.classList.add('hidden-page');
-    });
-    
+    pages.forEach(p => p.classList.remove('hidden-page'));
+
     const placeholder = document.getElementById('pagePlaceholder');
-    placeholder.style.display = 'none';
-
-    // Animation: Add temp class for entering
-    const applyAnim = (p) => {
-        p.classList.remove('hidden-page');
-    };
-
-    if (isSingleView) {
-        applyAnim(pages[currentPageIndex]);
-    } else {
-        // Double-page view: Always show even-indexed pairs (0-1, 2-3, etc)
-        let spreadStart;
-        if (currentPageIndex % 2 === 0) {
-            spreadStart = currentPageIndex;
-        } else {
-            spreadStart = currentPageIndex - 1;
-        }
-        
-        // Ensure valid spread start
-        if (spreadStart < 0) spreadStart = 0;
-        if (spreadStart >= pages.length) spreadStart = Math.max(0, pages.length - 2);
-        
-        // Show left page (even index)
-        if (pages[spreadStart]) applyAnim(pages[spreadStart]);
-        
-        // Show right page (odd index) or placeholder
-        if (spreadStart + 1 < pages.length) {
-            applyAnim(pages[spreadStart + 1]);
-        } else {
-            // Show placeholder for blank right page
-            placeholder.style.display = 'block';
-        }
-    }
+    if (placeholder) placeholder.style.display = 'none';
     
     document.getElementById('pageInfo').innerText = 
         `${toPersianDigits(currentPageIndex + 1)} / ${toPersianDigits(pages.length)}`;
 }
 
+function scrollToPage(index) {
+    const pages = getAllPages();
+    const target = pages[index];
+    if (!target) return;
+    currentPageIndex = index;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updatePaginationDisplay();
+}
+
+function updateCurrentPageFromScroll() {
+    const container = document.getElementById('bookContainer');
+    if (!container) return;
+    const pages = getAllPages();
+    if (pages.length === 0) return;
+
+    const containerRect = container.getBoundingClientRect();
+    let closestIndex = 0;
+    let closestDist = Infinity;
+
+    pages.forEach((p, idx) => {
+        const rect = p.getBoundingClientRect();
+        const dist = Math.abs(rect.top - containerRect.top);
+        if (dist < closestDist) {
+            closestDist = dist;
+            closestIndex = idx;
+        }
+    });
+
+    if (closestIndex !== currentPageIndex) {
+        currentPageIndex = closestIndex;
+        updatePaginationDisplay();
+    }
+}
+
 function nextPage() {
     const pages = getAllPages();
-    const inc = isSingleView ? 1 : 2;
-    
-    // Check if we can advance
-    let canAdvance = false;
-    if (isSingleView) {
-        canAdvance = currentPageIndex + 1 < pages.length;
-    } else {
-        // In double-view, calculate current spread start
-        let currentSpread = (currentPageIndex % 2 === 0) ? currentPageIndex : currentPageIndex - 1;
-        // Can go to next spread if there's at least one more page after this spread
-        canAdvance = currentSpread + 2 < pages.length;
-    }
-    
-    if (canAdvance) {
-        const currentVisible = document.querySelectorAll('.page:not(.hidden-page)');
-        currentVisible.forEach(p => {
-            p.style.transform = 'translateY(-10px)';
-            p.style.opacity = '0';
-        });
-        
-        setTimeout(() => {
-            if (isSingleView) {
-                currentPageIndex++;
-            } else {
-                // Ensure we jump by spread and stick to even starts
-                let currentSpread = (currentPageIndex % 2 === 0) ? currentPageIndex : currentPageIndex - 1;
-                currentPageIndex = currentSpread + 2;
-            }
-
-            // Clamping
-            if (currentPageIndex >= pages.length) {
-                currentPageIndex = Math.max(0, pages.length - 1);
-            }
-            
-            updatePaginationDisplay();
-
-            const newVisible = document.querySelectorAll('.page:not(.hidden-page)');
-            newVisible.forEach(p => {
-                p.style.transform = 'translateY(10px)'; 
-                p.offsetWidth; 
-                p.style.opacity = '1';
-                p.style.transform = 'translateY(0)';
-            });
-        }, 200);
+    if (currentPageIndex + 1 < pages.length) {
+        scrollToPage(currentPageIndex + 1);
     }
 }
 
 function prevPage() {
-    const inc = isSingleView ? 1 : 2;
-    
-    // Check if we can go back
     if (currentPageIndex > 0) {
-        const currentVisible = document.querySelectorAll('.page:not(.hidden-page)');
-        currentVisible.forEach(p => {
-            p.style.transform = 'translateY(10px)'; 
-            p.style.opacity = '0';
-        });
-        
-        setTimeout(() => {
-            if (isSingleView) {
-                currentPageIndex--;
-            } else {
-                // Return to previous even-indexed spread
-                let currentSpread = (currentPageIndex % 2 === 0) ? currentPageIndex : currentPageIndex - 1;
-                currentPageIndex = Math.max(0, currentSpread - 2);
-            }
-
-            if (currentPageIndex < 0) currentPageIndex = 0;
-            
-            updatePaginationDisplay();
-             
-            const newVisible = document.querySelectorAll('.page:not(.hidden-page)');
-            newVisible.forEach(p => {
-                p.style.transform = 'translateY(-10px)'; 
-                p.offsetWidth;
-                p.style.opacity = '1';
-                p.style.transform = 'translateY(0)';
-            });
-        }, 200);
+        scrollToPage(currentPageIndex - 1);
     }
 }
 
+function addNewPageManual() {
+    const newPage = createPage(false);
+    const pages = getAllPages();
+    const newIndex = pages.indexOf(newPage);
+    updatePageNumbers();
+    updatePaginationDisplay();
+    if (newIndex !== -1) scrollToPage(newIndex);
+    const content = newPage.querySelector('.content');
+    if (content) content.focus();
+}
+
 // --- Content Logic ---
-// Remove redundant empty lines to compress pages
+// Note: compressContent logic was removed to avoid automatic space/line deletion
 function compressContent(container) {
-    // Only remove > 4 consecutive empty lines to allow spacing
-    const children = Array.from(container.children);
-    let emptyCount = 0;
-    
-    for (let i = 0; i < children.length; i++) {
-        // Check if likely empty line (<div><br></div> or similar)
-        const isLine = children[i].tagName === 'DIV';
-        const isEmpty = isLine && (children[i].innerText.trim() === '' && !children[i].querySelector('img'));
-        
-        if (isEmpty) {
-            emptyCount++;
-            if (emptyCount > 4) { // Only remove if more than 4 empty lines
-                children[i].remove();
-            }
-        } else {
-            emptyCount = 0;
-        }
-    }
+    // Disabled to prevent automatic deletion of user content
 }
 
 function checkOverflow(content) {
@@ -731,7 +664,7 @@ async function triggerPagination() {
                                      const firstHalf = parts.slice(0, midPoint).join('<br/>');
                                      const secondHalf = parts.slice(midPoint).join('<br/>');
                                      
-                                     if (secondHalf.trim().length > 0) {
+                                     if (secondHalf.length > 0) {
                                          child.innerHTML = firstHalf;
                                          const newDiv = document.createElement('div');
                                          newDiv.innerHTML = secondHalf;
@@ -745,12 +678,12 @@ async function triggerPagination() {
                              // If no <br> tags, try word-count split for very long text
                              else if (child.textContent && child.textContent.length > 100) {
                                  const text = child.textContent;
-                                 const words = text.split(/\s+/);
+                                 const mid = Math.floor(text.length / 2);
+                                 const spaceIdx = text.indexOf(' ', mid);
                                  
-                                 if (words.length > 15) {
-                                     const midPoint = Math.floor(words.length / 2);
-                                     const firstHalf = words.slice(0, midPoint).join(' ');
-                                     const secondHalf = words.slice(midPoint).join(' ');
+                                 if (spaceIdx !== -1) {
+                                     const firstHalf = text.substring(0, spaceIdx);
+                                     const secondHalf = text.substring(spaceIdx); 
                                      
                                      child.textContent = firstHalf;
                                      const newDiv = document.createElement('div');
@@ -795,22 +728,7 @@ async function triggerPagination() {
             pass++;
         }
 
-        // --- پاکسازی صفحات خالی اضافه ---
-        const finalPages = getAllPages();
-        // از صفحه آخر شروع کن به عقب، اگر خالی بود حذف کن (به جز صفحه اول)
-        for (let j = finalPages.length - 1; j > 0; j--) {
-            const c = finalPages[j].querySelector('.content');
-            // چک می‌کنیم آیا صفحه واقعا خالی است (بدون متن و بدون عکس)
-            const isEmptyText = c.innerText.trim() === '';
-            const hasNoImg = c.querySelectorAll('img, .photo-wrapper').length === 0;
-            
-            if (isEmptyText && hasNoImg) {
-                finalPages[j].remove();
-            } else {
-                // به محض رسیدن به یک صفحه پر، توقف کن
-                break; 
-            }
-        }
+        // پاکسازی خودکار صفحات خالی غیرفعال شد (برای حفظ خطوط/فاصله‌ها)
 
     } catch (err) {
         console.error("Pagination Error:", err);
@@ -974,8 +892,8 @@ function handlePersianInput(event) {
                 }
             }
 
-            // 2. Half-Space Logic
-            // Check text BEFORE cursor for suffixes
+            // 2. Half-Space Logic (Disabled to prevent auto-deletion of spaces)
+            /*
             const textBefore = text.substring(0, endPos);
             let newTextBefore = textBefore;
             let changed = false;
@@ -1003,6 +921,7 @@ function handlePersianInput(event) {
                 selection.removeAllRanges();
                 selection.addRange(newRange);
             }
+            */
         }
     }
 }
@@ -1089,12 +1008,10 @@ function attachListeners(el) {
             
             // 2. Wrap strings in Divs to ensure granular pagination
             lines.forEach(line => {
-                if (line.trim() === '') {
+                // Modified: Removed .trim() check to preserve lines containing only spaces
+                if (line === '') {
                     htmlToInsert += '<div><br></div>';
                 } else {
-                    // Escape HTML to prevent injection if we were using innerHTML directly,
-                    // but we will use insertHTML command which handles basic structure.
-                    // Actually, let's basic escape to be safe since we build string.
                     const safeLine = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
                     htmlToInsert += `<div>${safeLine}</div>`;
                 }
@@ -1466,6 +1383,7 @@ function updateInkScale() {
 let resizeTimeout;
 window.addEventListener('resize', () => {
     updateInkScale();
+    updateGridScale();
     
     // Re-paginate on resize as page dimensions might change (vh units)
     clearTimeout(resizeTimeout);
@@ -1474,7 +1392,10 @@ window.addEventListener('resize', () => {
     }, 500);
 });
 // Interval to catch zoom changes that don't trigger resize
-setInterval(updateInkScale, 1000);
+setInterval(() => {
+    updateInkScale();
+    updateGridScale();
+}, 1000);
 
 // Handle Alt Key for Shortcuts Display
 document.addEventListener('keydown', (e) => {
@@ -1511,8 +1432,8 @@ window.addEventListener('load', () => {
      
      // Enforce Single View Default State visually
      if(isSingleView) {
-         document.getElementById('bookContainer').classList.add('single-view');
-         document.getElementById('viewBtn').innerText = "دو صفحه‌ای";
+         const bk = document.getElementById('bookContainer');
+         if (bk) bk.classList.add('single-view');
      }
      
      updatePaginationDisplay();
@@ -1759,7 +1680,6 @@ function handleGlobalShortcuts(e) {
         // Q=KeyQ, W=KeyW... etc. standard QWERTY layout
         
         switch(code) {
-            case 'KeyV': e.preventDefault(); toggleView(); break;          // View
             case 'KeyI': e.preventDefault(); toggleInkMode(); break;       // Ink
             case 'KeyC': e.preventDefault(); toggleCandle(); break;        // Candle
             case 'KeyP': e.preventDefault(); triggerImageUpload(); break;  // Photo
@@ -1779,7 +1699,7 @@ function handleGlobalShortcuts(e) {
     // Shortcuts Modal (?)
     if (code === 'F1') {
         e.preventDefault();
-        alert('میانبرهای صفحه کلید:\n\nAlt + V : تغییر نما\nAlt + I : جوهر\nAlt + C : شمع\nAlt + P : افزودن عکس\nAlt + R : متن خام\nAlt + Q : کیفیت پایین\nAlt + چپ/راست : ورق زدن\nاعداد ۱-۳ : استایل متن');
+        alert('میانبرهای صفحه کلید:\n\nAlt + I : جوهر\nAlt + C : شمع\nAlt + P : افزودن عکس\nAlt + R : متن خام\nAlt + Q : کیفیت پایین\nAlt + چپ/راست : ورق زدن\nاعداد ۱-۳ : استایل متن');
     }
 }
 
@@ -1829,8 +1749,7 @@ function renderGrid() {
             thumb.className = 'grid-thumb';
             if (index === currentPageIndex) thumb.classList.add('current');
             thumb.onclick = () => {
-                 currentPageIndex = index;
-                 updatePaginationDisplay();
+                  scrollToPage(index);
                  toggleGridView();
             };
             
@@ -1848,6 +1767,8 @@ function renderGrid() {
                 contentClone.removeAttribute('id');
                 contentClone.querySelectorAll('*').forEach(el => el.removeAttribute('id'));
 
+                applyThumbScale(contentClone);
+
                 scaler.appendChild(contentClone);
             }
             
@@ -1857,6 +1778,23 @@ function renderGrid() {
             console.error('Grid thumb error:', e);
         }
     });
+}
+
+function applyThumbScale(contentEl) {
+    if (!contentEl) return;
+    const ratio = window.devicePixelRatio || 1;
+    const baseScale = 0.25;
+    const scale = baseScale / Math.max(1, ratio);
+    const size = 100 / scale;
+
+    contentEl.style.transform = `scale(${scale})`;
+    contentEl.style.transformOrigin = 'top left';
+    contentEl.style.width = `${size}%`;
+    contentEl.style.height = `${size}%`;
+}
+
+function updateGridScale() {
+    document.querySelectorAll('.thumb-scaler .content').forEach(applyThumbScale);
 }
 
 
@@ -1879,11 +1817,15 @@ window.addEventListener('load', () => {
     if(isSingleView) {
         const bk = document.getElementById('bookContainer');
         if (bk) bk.classList.add('single-view');
-        const vb = document.getElementById('viewBtn');
-        if (vb) vb.innerText = '?? ???????';
     }
     
     updatePaginationDisplay();
+    const book = document.getElementById('bookContainer');
+    if (book) {
+        book.addEventListener('scroll', () => {
+            window.requestAnimationFrame(updateCurrentPageFromScroll);
+        });
+    }
     document.querySelectorAll('.content').forEach(attachListeners);
     
     document.addEventListener('selectionchange', handleSelectionContext);

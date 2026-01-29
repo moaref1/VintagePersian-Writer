@@ -37,7 +37,7 @@
         <defs>
             <filter id="ink-bleed">
                 <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.0" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.0" />
             </filter>
         </defs>
     </svg>
@@ -102,7 +102,7 @@
             <div class="shortcut-info" id="shortcutInfoBar">
                 <span><span class="shortcut-key">Alt+I</span> جوهر</span>
                 <span><span class="shortcut-key">Alt+C</span> شمع</span>
-                <span><span class="shortcut-key">Alt+V</span> نما</span>
+                <!-- تک‌صفحه‌ای ثابت: میانبر نما حذف شد -->
                 <span><span class="shortcut-key">Alt+P</span> عکس</span>
                 <span><span class="shortcut-key">Alt+R</span> خام</span>
             </div>
@@ -111,8 +111,8 @@
                 <button onclick="prevPage()">❮ قبل</button>
                 <span id="pageInfo" style="font-size: 0.8rem; color: #bbb; min-width: 50px; text-align: center;">۱ / ۱</span>
                 <button onclick="nextPage()">بعد ❯</button>
+                <button onclick="addNewPageManual()" id="newPageBtn">+ صفحه جدید</button>
                 <hr class="divider">
-                <button onclick="toggleView()" id="viewBtn">تک</button>
                 <button onclick="toggleLowQuality()" id="lqBtn">کیفیت پایین</button>
                 <hr class="divider">
                 <button onclick="toggleInkMode()" id="inkBtn" title="جوهر (Alt+I)">جوهر</button>
@@ -144,7 +144,7 @@
     </div>
 
     <!-- Book -->
-    <div class="book-container" id="bookContainer">
+    <div class="book-container single-view" id="bookContainer">
         <div class="margin-zone left"></div>
         <div class="margin-zone right"></div>
         <div class="spine-overlay"></div>
@@ -160,7 +160,6 @@
                 <div>• <b>Alt + C</b> → روشن کردن شمع که دنبال موست میاد</div>
                 <div>• <b>Alt + I</b> → افکت جوهر روی کاغذ</div>
                 <div>• <b>Alt + P</b> → اضافه کردن عکس با قاب قدیمی</div>
-                <div>• <b>Alt + V</b> → تغییر حالت تک‌صفحه یا دوتایی</div>
                 <div>• <b>Alt + R</b> → ادیتور متن خام (برای کپی پیست سریع)</div>
                 <div><br></div>
                 <div>متن رو انتخاب کن و عدد <b>۱</b> بزن تا بولد بشه، <b>۲</b> برای دیالوگ، <b>۳</b> برای شعر!</div>
