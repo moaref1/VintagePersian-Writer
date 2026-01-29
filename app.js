@@ -121,41 +121,8 @@ function loadProject(id) {
 
 function createSampleProject() {
     // Expanded sample text to fill 10 pages
-    const sampleText = `فشای مفاسد و فعالیت های خفیانة نظام حاکم بر کشور ایران
+    const sampleText = "این یک متن تسته، شروع کن و یه چیزی بنویس!"
 
-فشای مفاسد و فعالیت های خفیانة نظام حاکم بر کشور ایران، به شکل گفته است. این رسالة مدعی است که بتواند اخباری خفی را از سریترین نقاط نظام به دست مردم برساند[۱] روح الله زم، پایک اجلالی، سام خودسرای و بجید یکم از پیایکداران این ویگاه بوده اند.[۲] اما روح الله زم مدعی است که اداره این ویگاه را به گروه خیری داده است.
-
-کانال تلکرام آمدنیوز
-
-کانال تلکرام آمدنیوز نیز یکی از کانالهای فعال سیاسی و خبرساز است. کانال تلکرام این خبرگزاری در مرداد ماه ۱۳۹۶، به پیش از پنجاه هزار عضو رسید. این رقم در تیر ماه ۱۳۹۸ به ۶۰۰ هزار افزایش یافت. همچنین در تیر آذر ماه رقم در واخر آن، هزار رسید، در اواخر آن هزار ۸۵۰ هزار عضو را تیر رد کرد و در اخریات ماه به ۹۵۰ هزار عضو رسیده است. این موضوع درباره ی اهمیت و نفوذ این کانال تلکرام صحبت می کند.
-
-اهمیت این کانال
-
-این کانال فعالیت های نادرست را نمایش می دهد و مردم را از وضعیت واقعی آگاه می کند. همچنین این کانال بسیاری از مطالبات مردم را مطرح می کند. روح الله زم، بنیانگذار این کانال، در سال ۱۳۹۴ این کانال را برای اطلاع رسانی و نشر اخبار و مطالبات مردم تاسیس کرد. او معتقد است که این کانال باید مردم را در جریان اتفاقات داخلی و خارجی قرار دهد.
-
-صفحه پنجم - تاریخ و پیشینه
-
-این پروژه یک نمونه از متن فارسی برای تست صفحه بندی است. متن های بیشتر در صفحات بعدی قرار خواهند گرفت تا بتوانیم مکانیسم صفحه بندی را به درستی تست کنیم. تاریخ تشکیل این پروژه به سال ۱۳۹۴ بر می گردد. در آن زمان، بسیاری از فعالان سیاسی و فرهنگی به این ایده پرداختند که یک سیستم خبری جدید ایجاد شود که مستقل از رسانه های رسمی باشد.
-
-صفحه ششم - توسعه و رشد
-
-صفحه ششم: این صفحه نیز با متن نمونه ای پر شده است تا سیستم صفحه بندی به درستی کار کند و متن ها به صورت خودکار به صفحات بعدی منتقل شود. در ابتدا، تعداد کمی از مردم با این کانال آشنا بودند. اما به تدریج و با افزایش تعداد اعضای این کانال، اهمیت آن برای جامعه ایرانی بیشتر شد. بسیاری از رسانه های معروف جهانی نیز به این کانال توجه کردند و در مورد آن گزارش های مختلفی منتشر کردند.
-
-صفحه هفتم - تأثیرات و نتایج
-
-صفحه هفتم: این صفحه نیز با متن نمونه ای پر شده است تا سیستم صفحه بندی به درستی کار کند و متن ها به صورت خودکار به صفحات بعدی منتقل شود. تأثیرات این کانال بسیار گسترده بود. مردم از طریق این کانال می توانستند از رویدادهای مختلفی که در کشور رخ می داد آگاه شوند. بسیاری از اقدامات دولتی و بخش خصوصی نیز به دلیل فشار بیان شده در این کانال تغییر کرد.
-
-صفحه هشتم - چالش ها و مسائل
-
-صفحه هشتم: ادامه متن برای تست کامل سیستم صفحه بندی. این صفحه باید به طور خودکار بعد از صفحه هفتم نمایش داده شود و محتوای جدید را نشان دهد. البته این کانال با چالش های بسیاری روبه رو شد. دولت و سازمان های مختلف سعی کردند تا این کانال را مسدود کنند. اما با تکنولوژی های جدید، کانال توانست همچنان به کار خود ادامه دهد. بسیاری از کاربران نیز از ابزارهای مختلفی استفاده کردند تا بتوانند از این کانال استفاده کنند.
-
-صفحه نهم - آینده و چشم انداز
-
-صفحه نهم: این متن نیز برای تست نهایی سیستم صفحه بندی طراحی شده است. اگر تمام صفحات به درستی نمایش داده شوند، این بدان معنی است که سیستم صفحه بندی به درستی کار می کند. آینده این کانال وابسته به تصمیمات سیاسی و فنی است. برخی معتقدند که با توسعه فناوری و استفاده از شبکه های غیر متمرکز، کانالهای مشابه می توانند بهتر عمل کنند. دیگران بر این اند که دولت ها و سازمان های بزرگ همچنان قادر خواهند بود تا این گونه کانال ها را محدود کنند.
-
-صفحه دهم و نهایی - نتیجه گیری
-
-صفحه دهم و نهایی: این آخرین صفحه از نمونه متن است. پس از این صفحه، سیستم باید متوقف شود و هیچ صفحه جدیدی ایجاد نشود. اگر همه چیز به درستی کار کند، شما باید بتوانید از طریق دکمه های قبل و بعد میان این ده صفحه حرکت کنید. در خلاصه، تلکرام و کانال های مشابه آن نقش مهمی در انتشار اطلاعات و تشکیل نظرات عمومی ایفا کرده اند. این کانال ها نمونه ای از نحوه ی استفاده از فناوری برای اهداف اجتماعی و سیاسی هستند.`;
 
     const p0Content = document.getElementById('page-0').querySelector('.content');
     if (!p0Content) return;
@@ -344,7 +311,7 @@ function restoreFromLocal(rawJSON) {
         data.pages.forEach((html, index) => {
             let page;
             if (index === 0) page = document.getElementById('page-0');
-            else page = createPage();
+            else page = createPage(false); // [FIX]: Don't auto switch during restore
             
             page.querySelector('.content').innerHTML = html;
             // Critical: Re-attach listeners to restored content (fixes event loss)
@@ -482,12 +449,13 @@ function nextPage() {
     if (isSingleView) {
         canAdvance = currentPageIndex + 1 < pages.length;
     } else {
-        // In double-view, allow going to next spread (even if last page is blank)
-        canAdvance = currentPageIndex + inc <= pages.length;
+        // In double-view, calculate current spread start
+        let currentSpread = (currentPageIndex % 2 === 0) ? currentPageIndex : currentPageIndex - 1;
+        // Can go to next spread if there's at least one more page after this spread
+        canAdvance = currentSpread + 2 < pages.length;
     }
     
     if (canAdvance) {
-        // 1. Animation Logic
         const currentVisible = document.querySelectorAll('.page:not(.hidden-page)');
         currentVisible.forEach(p => {
             p.style.transform = 'translateY(-10px)';
@@ -495,21 +463,29 @@ function nextPage() {
         });
         
         setTimeout(() => {
-            currentPageIndex += inc;
-            // Prevent going past bounds
-            if (currentPageIndex >= pages.length) {
-                currentPageIndex = pages.length - 1;
+            if (isSingleView) {
+                currentPageIndex++;
+            } else {
+                // Ensure we jump by spread and stick to even starts
+                let currentSpread = (currentPageIndex % 2 === 0) ? currentPageIndex : currentPageIndex - 1;
+                currentPageIndex = currentSpread + 2;
             }
+
+            // Clamping
+            if (currentPageIndex >= pages.length) {
+                currentPageIndex = Math.max(0, pages.length - 1);
+            }
+            
             updatePaginationDisplay();
-            // Reset Anim styles
+
             const newVisible = document.querySelectorAll('.page:not(.hidden-page)');
             newVisible.forEach(p => {
                 p.style.transform = 'translateY(10px)'; 
-                p.offsetWidth; // Trigger reflow
+                p.offsetWidth; 
                 p.style.opacity = '1';
                 p.style.transform = 'translateY(0)';
             });
-        }, 200); // Wait for fade out
+        }, 200);
     }
 }
 
@@ -520,22 +496,26 @@ function prevPage() {
     if (currentPageIndex > 0) {
         const currentVisible = document.querySelectorAll('.page:not(.hidden-page)');
         currentVisible.forEach(p => {
-            p.style.transform = 'translateY(10px)'; // Move down leaving
+            p.style.transform = 'translateY(10px)'; 
             p.style.opacity = '0';
         });
         
         setTimeout(() => {
-            currentPageIndex -= inc;
-            // Prevent going before start
-            if (currentPageIndex < 0) {
-                currentPageIndex = 0;
+            if (isSingleView) {
+                currentPageIndex--;
+            } else {
+                // Return to previous even-indexed spread
+                let currentSpread = (currentPageIndex % 2 === 0) ? currentPageIndex : currentPageIndex - 1;
+                currentPageIndex = Math.max(0, currentSpread - 2);
             }
+
+            if (currentPageIndex < 0) currentPageIndex = 0;
             
             updatePaginationDisplay();
              
             const newVisible = document.querySelectorAll('.page:not(.hidden-page)');
             newVisible.forEach(p => {
-                p.style.transform = 'translateY(-10px)'; // Enter from top
+                p.style.transform = 'translateY(-10px)'; 
                 p.offsetWidth;
                 p.style.opacity = '1';
                 p.style.transform = 'translateY(0)';
@@ -629,7 +609,8 @@ function hideUndoToast() {
     document.getElementById('undoToast').classList.remove('visible');
 }
 
-function createPage() {
+// [FIXED] Added autoSwitch parameter to prevent random jumping during pagination loops
+function createPage(autoSwitch = true) {
     const id = getAllPages().length;
     const page = document.createElement('article');
     page.className = 'page hidden-page'; 
@@ -658,6 +639,15 @@ function createPage() {
 
     attachListeners(content);
     observer.observe(content, { childList: true, subtree: true }); // Observe new pages!
+    
+    // Only auto-navigate if requested (e.g. creating new page manually, not via pagination)
+    if (autoSwitch) {
+        setTimeout(() => {
+            currentPageIndex = id;
+            updatePaginationDisplay();
+        }, 100);
+    }
+    
     return page;
 }
 
@@ -685,6 +675,19 @@ function updatePageNumbers() {
 
 async function triggerPagination() {
     if (isPaginating) return;
+    
+    // [PRESERVE SELECTION] Place a temporary marker to keep cursor position
+    const sel = window.getSelection();
+    let marker = null;
+    let activeEl = document.activeElement;
+    if (activeEl && activeEl.classList.contains('content') && sel.rangeCount > 0) {
+        const range = sel.getRangeAt(0);
+        marker = document.createElement('span');
+        marker.id = 'selection-marker';
+        marker.style.display = 'none';
+        range.insertNode(marker);
+    }
+
     isPaginating = true;
 
     // کمی صبر برای رندر شدن متن پیست شده
@@ -711,9 +714,59 @@ async function triggerPagination() {
                 // تا زمانی که صفحه سرریز دارد (ارتفاع محتوا بیشتر از ارتفاع باکس است)
                 // و هنوز محتوایی برای جابجایی وجود دارد
                 while (currContent.scrollHeight > currContent.clientHeight + 2 && currContent.lastChild) {
-                    // Prevent infinite loop if the single element is too big for the page
+                    
+                    // [SMART SINGLE-BLOCK TRAP FIX]
+                    // If there is only 1 child and it's overflowing, don't just break - split intelligently
                     if (currContent.children.length === 1) {
-                         break; 
+                         const child = currContent.firstElementChild;
+                         let splitted = false;
+                         
+                         if (child && !child.querySelector('.photo-wrapper')) {
+                             // Try splitting by <br> tags first (respects user breaks)
+                             if (child.innerHTML && (child.innerHTML.includes('<br>') || child.innerHTML.includes('</div>'))) {
+                                 const parts = child.innerHTML.split(/<br\s*\/?>/i);
+                                 if (parts.length > 1) {
+                                     // Split by breaks - keep first half, move second half
+                                     const midPoint = Math.floor(parts.length / 2);
+                                     const firstHalf = parts.slice(0, midPoint).join('<br/>');
+                                     const secondHalf = parts.slice(midPoint).join('<br/>');
+                                     
+                                     if (secondHalf.trim().length > 0) {
+                                         child.innerHTML = firstHalf;
+                                         const newDiv = document.createElement('div');
+                                         newDiv.innerHTML = secondHalf;
+                                         currContent.appendChild(newDiv);
+                                         stability = false;
+                                         splitted = true;
+                                         continue;
+                                     }
+                                 }
+                             }
+                             // If no <br> tags, try word-count split for very long text
+                             else if (child.textContent && child.textContent.length > 100) {
+                                 const text = child.textContent;
+                                 const words = text.split(/\s+/);
+                                 
+                                 if (words.length > 15) {
+                                     const midPoint = Math.floor(words.length / 2);
+                                     const firstHalf = words.slice(0, midPoint).join(' ');
+                                     const secondHalf = words.slice(midPoint).join(' ');
+                                     
+                                     child.textContent = firstHalf;
+                                     const newDiv = document.createElement('div');
+                                     newDiv.textContent = secondHalf;
+                                     currContent.appendChild(newDiv);
+                                     stability = false;
+                                     splitted = true;
+                                     continue;
+                                 }
+                            }
+                         }
+                         
+                         // If couldn't split, break to prevent infinite loop
+                         if (!splitted) {
+                             break;
+                         }
                     }
 
                     stability = false; // تغییری ایجاد کردیم، پس باید دوباره چک کنیم
@@ -721,7 +774,7 @@ async function triggerPagination() {
                     // صفحه بعدی را پیدا کن، اگر نبود بساز
                     let nextPage = pages[i + 1];
                     if (!nextPage) {
-                        nextPage = createPage();
+                        nextPage = createPage(false); // [FIXED] Pass false to avoid auto-switch
                         pages.push(nextPage); // به لیست محلی اضافه کن
                     }
                     
@@ -763,10 +816,41 @@ async function triggerPagination() {
         console.error("Pagination Error:", err);
     } finally {
         isPaginating = false;
+        
+        // [RESTORE SELECTION]
+        if (marker) {
+            const parent = marker.parentNode;
+            if (parent) {
+                const range = document.createRange();
+                range.setStartAfter(marker);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+                
+                // If it moved to a hidden page, we might need to update current view
+                let pageOfMarker = parent.closest('.page');
+                if (pageOfMarker) {
+                    const pages = getAllPages();
+                    const newIdx = pages.indexOf(pageOfMarker);
+                    if (newIdx !== -1 && !isSingleView) {
+                         // Logic to align spread to show the cursor
+                         if (newIdx !== currentPageIndex && newIdx !== currentPageIndex + 1) {
+                             // Adjust currentPageIndex to show this spread
+                             currentPageIndex = newIdx % 2 === 0 ? newIdx : newIdx - 1;
+                         }
+                    } else if (newIdx !== -1 && isSingleView) {
+                         if (newIdx !== currentPageIndex) currentPageIndex = newIdx;
+                    }
+                }
+            }
+            marker.remove();
+        }
+
         updatePageNumbers();
         updatePaginationDisplay();
     }
 }
+
 
 // --- Drag & Drop Global Handler ---
 let dragIndicator = null;
@@ -973,8 +1057,9 @@ function attachListeners(el) {
     el.addEventListener('input', (e) => {
         handlePersianInput(e);
         // Debounce pagination to avoid rapid repeated calls that cause instability
+        // Increased to 500ms to allow smoother typing before heavy DOM manipulation
         clearTimeout(el._paginationTimeout);
-        el._paginationTimeout = setTimeout(() => triggerPagination(), 150);
+        el._paginationTimeout = setTimeout(() => triggerPagination(), 500);
 
         // Add Auto-Save Debounce
         clearTimeout(autoSaveTimeout);

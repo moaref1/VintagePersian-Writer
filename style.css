@@ -240,6 +240,16 @@ body.low-quality {
     display: block;
 }
 
+/* Asymmetric Padding for Spine (Persian Books: Even=Right, Odd=Left) */
+.book-container:not(.single-view) .page:nth-of-type(even) {
+    padding-left: 4.5rem; /* Inner margin near spine */
+    padding-right: 2.5rem; /* Outer margin */
+}
+.book-container:not(.single-view) .page:nth-of-type(odd) {
+    padding-right: 4.5rem; /* Inner margin near spine */
+    padding-left: 2.5rem; /* Outer margin */
+}
+
 .page.hidden-page {
     position: absolute;
     top: 0;
@@ -255,7 +265,15 @@ body.low-quality {
 .page-placeholder {
     width: 50%;
     flex-shrink: 0;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.015);
+    display: flex; /* display is toggled by JS block/none, but when block, flex kicks in */
+    align-items: center;
+    justify-content: center;
+    color: rgba(60, 50, 40, 0.15);
+    font-size: 1.2rem;
+    border-radius: 4px;
+    height: 100%;
+    border: 1px dashed rgba(0, 0, 0, 0.05);
 }
 
 .page-border {

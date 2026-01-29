@@ -23,7 +23,8 @@
     <button class="sidebar-toggle" onclick="toggleSidebar()" title="پروژه‌ها">☰</button>
     <div class="project-sidebar" id="projectSidebar">
         <h3 style="color:#d4a04d; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">پروژه‌ها</h3>
-        <button onclick="createNewProject()" style="background:#d4a04d; color:#000; border:none; padding:10px; border-radius:6px; cursor:pointer; width:100%; margin-bottom:20px; font-weight:bold;">+ پروژه جدید</button>
+        <button onclick="createNewProject()" style="background:#d4a04d; color:#000; border:none; padding:10px; border-radius:6px; cursor:pointer; width:100%; margin-bottom:10px; font-weight:bold;">+ پروژه جدید</button>
+        <button onclick="clearAllCache()" style="background:#c44; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer; width:100%; margin-bottom:20px; font-size:0.85rem;">🗑️ پاک کردن همه حافظه</button>
         <div id="projectList" style="overflow-y: auto; flex: 1;"></div>
     </div>
     
@@ -149,10 +150,28 @@
         <div class="spine-overlay"></div>
         <article class="page" id="page-0">
             <div class="page-border"></div>
-            <div class="content" contenteditable="true" spellcheck="false" placeholder="بنویسید..."></div>
+            <div class="content" contenteditable="true" spellcheck="false" placeholder="بنویسید...">
+                <div style="text-align: center; font-size: 1.4rem; margin-bottom: 20px; color: #d4a04d;">✨ به قلمدان خوش آمدید ✨</div>
+                <div><br></div>
+                <div>این یک محیط نوشتاری با حال و هوای کتاب‌های قدیمی است. هرچی بنویسید، خودکار ذخیره می‌شه!</div>
+                <div><br></div>
+                <div style="font-weight: bold;">🕯️ ویژگی‌های جالب:</div>
+                <div><br></div>
+                <div>• <b>Alt + C</b> → روشن کردن شمع که دنبال موست میاد</div>
+                <div>• <b>Alt + I</b> → افکت جوهر روی کاغذ</div>
+                <div>• <b>Alt + P</b> → اضافه کردن عکس با قاب قدیمی</div>
+                <div>• <b>Alt + V</b> → تغییر حالت تک‌صفحه یا دوتایی</div>
+                <div>• <b>Alt + R</b> → ادیتور متن خام (برای کپی پیست سریع)</div>
+                <div><br></div>
+                <div>متن رو انتخاب کن و عدد <b>۱</b> بزن تا بولد بشه، <b>۲</b> برای دیالوگ، <b>۳</b> برای شعر!</div>
+                <div><br></div>
+                <div style="text-align: center; font-style: italic; margin-top: 20px;">حالا شروع کن به نوشتن... صفحات خودکار اضافه می‌شن! 📖</div>
+            </div>
             <div class="page-number">۰</div>
         </article>
-        <div class="page-placeholder" id="pagePlaceholder" style="display:none;"></div>
+        <div class="page-placeholder" id="pagePlaceholder" style="display:none;">
+            <span>پایان دفتر</span>
+        </div>
     </div>
 
     <script src="app.js"></script>
