@@ -1,4 +1,4 @@
-# Vintage Persian Writing Interface (قلمدان)
+# Vintage Persian Writing Interface بمولا!
 
 A sophisticated, distraction-free writing environment designed specifically for Persian literature. This text editor mimics the aesthetic of vintage manuscripts and books, featuring real-time pagination, atmospheric effects, and smart Persian typing assistance.
 
@@ -76,7 +76,7 @@ Feel free to submit issues or pull requests. Major changes to the pagination log
 
 <div dir="rtl">
 
-# واسط نوشتار فارسی قدیمی (قلمدان)
+# واسط نوشتار فارسی قدیمی 
 
 یک محیط نوشتاری زیبا و بدون حواس‌پرتی که مخصوص ادبیات فارسی طراحی شده است. این ویرایشگر حس و حال نوشتن در کتاب‌ها و نسخ خطی قدیمی را شبیه‌سازی می‌کند.
 
@@ -89,4 +89,5 @@ Feel free to submit issues or pull requests. Major changes to the pagination log
 - **خروجی PDF:** پرینت تمیز و بدون مزاحمت‌های بصری.
 
 </div>
+
 
