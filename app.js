@@ -892,8 +892,7 @@ function handlePersianInput(event) {
                 }
             }
 
-            // 2. Half-Space Logic (Disabled to prevent auto-deletion of spaces)
-            /*
+            // 2. Half-Space Logic (Enabled)
             const textBefore = text.substring(0, endPos);
             let newTextBefore = textBefore;
             let changed = false;
@@ -921,7 +920,6 @@ function handlePersianInput(event) {
                 selection.removeAllRanges();
                 selection.addRange(newRange);
             }
-            */
         }
     }
 }
